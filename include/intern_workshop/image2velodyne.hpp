@@ -52,6 +52,7 @@ class Image2velodyne
 	int load_data(string path,int num);
 	void json2msg(string filename, geometry_msgs::Pose& pose, int flag_init);
 	int calc_dv(string before_file,string after_file);
+	void calcCurv(cv::Vec3b center, cv::Vec3b neighbor, double &curv);
 	int	image2point(cv::Mat depth_image_, cv::Mat intensity_image_ ,cv::Mat normal_image_);
 	int calc(int row, int col, ushort distance,float &x,float &y,float &z);
 	int complement(int col);

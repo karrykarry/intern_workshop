@@ -170,30 +170,76 @@ Image2velodyne::calc_dv(string before_file,string after_file){
 }/*}}}*/
 
 
+void 
+Image2velodyne::calcCurv(cv::Vec3b center, cv::Vec3b neighbor, double &curv)
+{
+	double  cx, cy, cz, nx, ny, nz;
+	double dot;// = center[0] * neighbor[0] + center[1] * neighbor[1] + center[2] * neighbor[2];
+
+	cx = neighbor[2] / 255.0;
+	cy = neighbor[1] / 255.0;
+	cz = neighbor[0] / 255.0;
+	nx = center[2] / 255.0;
+	ny = center[1] / 255.0;
+	nz = center[0] / 255.0;
+
+	dot = cx * nx + cy * ny + cz * nz;
+
+	if(cx > 0.1 || cy > 0.1 && nz < 1.0){
+		curv = 0.6;
+	}else{
+		curv = 0.0;
+	}
+}
+
+
 
 int
 Image2velodyne::image2point(cv::Mat depth_image_, cv::Mat intensity_image_ ,cv::Mat normal_image_){
 
 	pcl::PointXYZINormal cloud;
 	float x,y,z;
+	double curv = 0.0;
 	
 	pc->points.clear();
 
 	for(int row=0;row < depth_image_.rows;row++){
+		cv::Vec3b* n_ptr = normal_image_.ptr<cv::Vec3b>(row);
 		for(int col=0;col<depth_image_.cols;col++){
 			unsigned short distance = depth_image_.at<unsigned short>(row,col);
 			if(!distance) continue;	
 			calc(row,col,distance,x,y,z);
 			unsigned char intensity = intensity_image_.at<unsigned char>(row,col);
 			// int intensity = intensity_image_.data[row * intensity_image_.cols + col];
+
+			//normal
+			cv::Vec3b normal = n_ptr[col];
+
+			for(int i = 0; i < 3; i++){
+				cv::Vec3b* n_ptr9 = normal_image_.ptr<cv::Vec3b>(row - 1 + i);
+				for(int j = 0; j < 3; j++){
+					if(i != 2 || j != 2){
+						cv::Vec3b n9 = n_ptr[(col - 1 + j + depth_image_.cols) % depth_image_.cols];
+						calcCurv(normal, n9, curv);
+						if(curv > 0.5){
+							break;
+						}
+					}
+				}
+				if(curv > 0.5){
+					break;
+				}
+			}
+			
 			cloud.x = x;
 			cloud.y = y;
 			cloud.z = z;
 			cloud.intensity = (int) intensity;
-			cloud.normal_x = normal_image_.at<cv::Vec3b>(row,col)[2];
-			cloud.normal_y = normal_image_.at<cv::Vec3b>(row,col)[1];
-			cloud.normal_z = normal_image_.at<cv::Vec3b>(row,col)[0];
-			// intern_toyota
+			cloud.normal_x = normal[2];
+			cloud.normal_y = normal[1];
+			cloud.normal_z = normal[0];
+			cloud.curvature = curv;
+			
 			pc->points.push_back(cloud);
 		}
 	}

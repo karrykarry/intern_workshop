@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <launch>
-	<rosparam file="$(find intern_toyota)/yaml/run_scene.yaml" />
-	<node name="pub_data" pkg="intern_toyota" type="pub_data" output="screen" />
+	<rosparam file="$(find intern_workshop)/yaml/run_scene.yaml" />
+	<node name="pub_data" pkg="intern_workshop" type="pub_data" output="screen" />
 
 	<node pkg="tf" type="static_transform_publisher" name="vel_tf_broadcaster"
 		args="0 0 1.700 0.0 0 0 /matching_base_link /velodyne 100" />
