@@ -2,7 +2,14 @@
 
 Image_seg::Image_seg(){
 	pub	= n.advertise<sensor_msgs::Image>("/camera/vision", 100);
+	info_pub	= n.advertise<sensor_msgs::CameraInfo>("/camera/info", 100);
 	flag = false;
+
+	msg_info.header.frame_id = "/camera";
+	msg_info.height = 614;
+	msg_info.width = 808;
+	
+
 }
 
 int
@@ -26,5 +33,10 @@ Image_seg::point_pub()
     msg_image->header.frame_id = "/camera";
 
     pub.publish(msg_image);
+
+
+	msg_info.header.stamp = ros::Time::now();
+	info_pub.publish(msg_info);
+
 }
 

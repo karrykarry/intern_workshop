@@ -167,6 +167,7 @@ SET(CMAKE_CXX_FLAGS "-std=c++11 -O2 -g -Wall ${CMAKE_CXX_FLAGS}")
 add_executable(png2mp4 src/png2mp4.cpp) 
 add_executable(tyu src/tyu.cpp) 
 add_executable(pub_data src/pub_data.cpp src/image2velodyne.cpp src/image_seg.cpp) 
+add_executable(pub_color2pc src/pub_color2pc.cpp src/color2pc.cpp) 
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -191,6 +192,13 @@ target_link_libraries(tyu
 
 
 target_link_libraries(pub_data
+  ${catkin_LIBRARIES}
+  ${OpenCV_LIBRARIES}
+  ${PCL_LIBRARIES}
+)
+
+
+target_link_libraries(pub_color2pc
   ${catkin_LIBRARIES}
   ${OpenCV_LIBRARIES}
   ${PCL_LIBRARIES}

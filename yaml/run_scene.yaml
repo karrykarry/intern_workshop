@@ -1,8 +1,12 @@
 root_dir_path : /home/amsl/toyota
 work_num : /dataset1
 scene_path : /car[5]
-# scene_num : /5
-# scene_num : /5
-# scene_num : /5
-# scene_num : /5
+# scene_path : /bike_bicycle[5]
+# scene_path : /construction[5]
+# scene_path : /cut-in_car[5]
+# scene_path : /indistinct_car[5]
+# scene_num : /1
+# scene_num : /2
+scene_num : /3
+# scene_num : /4
 # scene_num : /5

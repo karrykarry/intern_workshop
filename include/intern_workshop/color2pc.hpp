@@ -1,34 +1,34 @@
-#ifndef _IMAGE_SEG_HPP_
-#define _IMAGE_SEG_HPP_
+#ifndef _COLOR2PC_HPP_
+#define _COLOR2PC_HPP_
 
 #include <ros/ros.h>
 #include <iostream>
 #include <vector>
 #include <string.h>
 #include <sensor_msgs/Image.h>
-#include <sensor_msgs/CameraInfo.h>
 #include <opencv2/opencv.hpp>
 #include <cv_bridge/cv_bridge.h>
 #include <image_transport/image_transport.h>
+#include <pcl/point_cloud.h>
+#include <pcl/point_types.h>
+#include <pcl/io/pcd_io.h>
+#include <pcl_conversions/pcl_conversions.h>
 
 using namespace std;
 
 
-class Image_seg
+class Color2pc
 {
 	private:
 		ros::NodeHandle n;
-		ros::Publisher pub;
-		ros::Publisher info_pub;
 
 		bool flag;
 
-		sensor_msgs::CameraInfo msg_info;
-		cv::Mat vision_image;
+		cv::Mat depth_png;
 
 	public:
 
-		Image_seg();
+		Color2pc();
 		int load_data(string path, int num);
 		void point_pub();
 
