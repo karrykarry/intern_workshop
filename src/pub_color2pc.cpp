@@ -24,6 +24,7 @@ int main(int argc, char* argv[])
     int count = 0;
     while(ros::ok()){
 		c2pc.load_data(path,count);	
+		c2pc.point_pub();
 		
         count++;
         
