@@ -1,5 +1,4 @@
 #include "image2velodyne.hpp"
-#include "math.h"
 
 Image2velodyne::Image2velodyne()
 	:pc(new pcl::PointCloud<pcl::PointXYZINormal>)
@@ -255,7 +254,7 @@ Image2velodyne::complement(int col){
 
 	if(col<1024) dt = (1023.0-col)/2048.0;
 	
-	else dt = 1 + (1023.0-col)/2048.0;
+	else dt = 1 + (1023.0-col)/2048.0; 
 
 	// return pow(dx*dt,2) + pow(dy*dt,2) + pow(dz*dt,2);
 	return pow(dx*dt,2) + pow(dy*dt,2);
@@ -263,28 +262,6 @@ Image2velodyne::complement(int col){
 
 }/*}}}*/
 
-double Image2velodyne::complement_k(int col, double &dxt, double &dyt){
-
-	double dt;
-	
-	if(col<=1024){
-		dt = (1024.0 + col) / 2048.0;
-	}else{
-		dt = (col - 1024.0) / 2048.0;
-	}
-
-	dxt = dx*dt;
-	dyt = dy*dt;
-	// return pow(dx*dt,2) + pow(dy*dt,2) + pow(dz*dt,2);
-	//std::cout <<  "hos " << pow(dx*dt,2) + pow(dy*dt,2) << std::endl;
-	//std::cout <<  "col " << col << std::endl;
-	//std::cout <<  "dxt " << dxt << std::endl;
-	//std::cout <<  "dyt " << dyt << std::endl;
-	//std::cout <<  "dt " << dt << std::endl;
-	//cout << "ss " << sqrt(pow(dxt,2) + pow(dyt,2)) << endl;
-	return sqrt(pow(dxt,2) + pow(dyt,2));
-
-}/*}}}*/
 
 
 int
@@ -302,54 +279,16 @@ Image2velodyne::calc(int row, int col, ushort distance,float &x,float &y,float &
 
 
 	double dist = distance * 100.0 / pow(2,16);
-	//double d = 0;
-/*	
-	//origin
 	double d = complement(col);
+    
 	double theta = 2*M_PI *(1 - (2047.0-col)/2048.0);  
+   
 	double dist_ = sqrt(d + dist*dist - 2 * sqrt(d)*dist*cos(theta));
+
+
 	x = dist_*cos(vertical)*cos(horizon);
 	y = dist_*cos(vertical)*sin(horizon);
-*/
-	
-	//kmb
-	tf::Quaternion q(geo_pose.orientation.x, geo_pose.orientation.y, geo_pose.orientation.z, geo_pose.orientation.w);
-	tf::Matrix3x3 m(q);
-	double roll, pitch, yaw;
-	m.getRPY(roll, pitch, yaw);
-	//std::cout << "Roll: " << roll << ", Pitch: " << pitch << ", Yaw: " << yaw << std::endl;
-	double dxt = 0;
-	double dyt = 0;
-	double d = complement_k(col, dxt, dyt);
-	double dist_ = 0;
-	if(col >= 1024){
-		dist_ = sqrt(pow(dist*cos(horizon + yaw) - d * cos(yaw),2) + (pow(dist*sin(yaw + horizon) - d * sin(yaw),2)));
-	}else{
-		dist_ = sqrt(pow(dist*cos(horizon + yaw) - d * cos(yaw),2) + (pow(dist*sin(yaw + horizon) - d * sin(yaw),2)));
-	}
-	//cout << "d" << d << endl;
-	//double theta = horizon - acos((pow(dist,2) + pow(dist_,2) - pow(d,2)) / (2 * dist * dist_));
-	
-	double theta = 0;
-	//if(horizon > 0.0){
-	//theta = horizon - acos((pow(dist,2) - pow(dist_,2) - pow(d,2)) / (2 * dist * dist_));
-	if(col <= 1024){
-		theta = horizon + acos((pow(dist,2) + pow(dist_,2) - pow(d,2)) / (2 * dist * dist_));
-	}else{
-		theta = horizon - acos((pow(dist,2) + pow(dist_,2) - pow(d,2)) / (2 * dist * dist_));
-	}
-	//cout << "nc " << (pow(dist,2) + pow(dist_,2) - pow(d,2)) / (2 * dist * dist_) << endl;
-	if(horizon < -3.0){
-	//cout << "ac " << acos(((pow(dist,2) + pow(dist_,2) - pow(d,2)) / (2 * dist * dist_))) << endl;
-	}
-	//if(horizon > 3.0){
-	x = dist_*cos(vertical)*cos(theta);// - dyt;
-	y = dist_*cos(vertical)*sin(theta);// - dxt;
 	z = dist_*sin(vertical) ;
-	//}
-	//x = dist*cos(vertical)*cos(horizon);
-	//y = dist*cos(vertical)*sin(horizon);
-	//z = dist*sin(vertical) ;
 }
 
 

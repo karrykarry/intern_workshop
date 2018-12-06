@@ -56,7 +56,6 @@ class Image2velodyne
 	int	image2point(cv::Mat depth_image_, cv::Mat intensity_image_ ,cv::Mat normal_image_);
 	int calc(int row, int col, ushort distance,float &x,float &y,float &z);
 	int complement(int col);
-	double complement_k(int col, double &dxt, double &dyt);
 	void tf_broad(nav_msgs::Odometry msg);
 	int point_pub();
 	int odom_pub();

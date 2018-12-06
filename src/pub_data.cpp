@@ -1,4 +1,5 @@
 #include <ros/ros.h>
+#include <std_msgs/Bool.h>
 #include "image2velodyne.hpp"
 #include "image_seg.hpp"
 
@@ -8,7 +9,9 @@ int main(int argc, char* argv[])
 {
     ros::init(argc, argv, "pub_data");
 	ros::NodeHandle n;
-  
+
+	ros::Publisher flag_pub = n.advertise<std_msgs::Bool>("scene_flag", 10);
+
 	string root_dir_path,work_num,scene_path,scene_num;
 
 	n.getParam("/root_dir_path",root_dir_path);
@@ -36,6 +39,9 @@ int main(int argc, char* argv[])
         count++;
         // if(count == 50){
         if(count == 49){
+			std_msgs::Bool data;
+			data.data = true;
+			flag_pub.publish(data);
         /* if(count == 70){ */
         /* if(count == 90){ */
             count = 0;
