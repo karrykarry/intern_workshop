@@ -44,7 +44,8 @@ int main(int argc, char* argv[])
 			flag_pub.publish(data);
         /* if(count == 70){ */
         /* if(count == 90){ */
-            count = 0;
+        //	break;
+			count = 0;
         }
         ros::spinOnce();
         loop_rate.sleep();

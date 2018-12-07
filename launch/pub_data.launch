@@ -20,8 +20,8 @@
 		<param name="radius_length" value="65.0"/>
 		<param name="intensity2obstacles" value="false"/>
 		<!-- <param name="intensity2obstacles" value="true"/> -->
-		<!-- <param name="curb2obstacles" value="true"/> -->
-		<param name="curb2obstacles" value="false"/>
+		<param name="curb2obstacles" value="true"/>
+		<!-- <param name="curb2obstacles" value="false"/> -->
 
 		<!-- <remap from="velodyne_obstacles" to="velodyne_obstacles"/> -->
 		<!-- <remap from="velodyne_clear" to="velodyne_clear"/> -->

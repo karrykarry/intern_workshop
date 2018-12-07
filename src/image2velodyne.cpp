@@ -343,13 +343,13 @@ Image2velodyne::calc(int row, int col, ushort distance,float &x,float &y,float &
 	//cout << "ac " << acos(((pow(dist,2) + pow(dist_,2) - pow(d,2)) / (2 * dist * dist_))) << endl;
 	}
 	//if(horizon > 3.0){
-	x = dist_*cos(vertical)*cos(theta);// - dyt;
-	y = dist_*cos(vertical)*sin(theta);// - dxt;
-	z = dist_*sin(vertical) ;
+	// x = dist_*cos(vertical)*cos(theta);// - dyt;
+	// y = dist_*cos(vertical)*sin(theta);// - dxt;
+	// z = dist_*sin(vertical) ;
 	//}
-	//x = dist*cos(vertical)*cos(horizon);
-	//y = dist*cos(vertical)*sin(horizon);
-	//z = dist*sin(vertical) ;
+	x = dist*cos(vertical)*cos(horizon);
+	y = dist*cos(vertical)*sin(horizon);
+	z = dist*sin(vertical) ;
 }
 
 
