@@ -1,0 +1,31 @@
+
+<?xml version="1.0"?>
+<launch>
+
+	<param name="MIN_SIZE" value="0.01f" />
+	<param name="MAX_SIZE" value="10.0f" />
+	<!-- <param name="Tolerance" value="0.03f" /> -->
+	<!-- <param name="Min_num" value="18d" /> -->
+	<!-- <param name="Max_num" value="25d" /> -->
+
+	<!-- trafic_light 2 -->
+	<param name="Tolerance" value="0.02f" />
+	<param name="Min_num" value="15d" />
+	<param name="Max_num" value="1000d" />
+
+
+	<node pkg="pcl_tutorials" type="cluster_test" name="cluster_test"  >
+		<!-- <remap from ="velodyne_points" to="velodyne_voxel" />	 -->
+		<remap from ="velodyne_points" to="dynamic_points_pub" />	
+		<!-- <remap from ="velodyne_points" to="velodyne_obstacles" />	 -->
+	</node>
+
+	<!-- <node pkg="pcl_tutorials" type="lidar_image_match" name="lidar_image_match" output="screen" /> -->
+
+
+	<!-- <node pkg="dynamic_recognition" type="obstacle_tracking" name="obstacle_tracking" output="screen" /> -->
+
+	<!-- <node pkg="pcl_tutorials" type="point_union" name="point_union" /> -->
+</launch>
+	
+

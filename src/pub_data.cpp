@@ -1,3 +1,11 @@
+/* pub_data.cpp
+ *
+ * 2018.12.7
+ *
+ * author : R.Kusakari
+ *
+ * depth intensity normalのpngから3次元点群に変換
+*/ 
 #include <ros/ros.h>
 #include <std_msgs/Bool.h>
 #include "image2velodyne.hpp"

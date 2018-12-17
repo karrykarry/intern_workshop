@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8.3)
 project(intern_workshop)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
-# add_compile_options(-std=c++11)
+add_compile_options(-std=c++11)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -133,7 +133,7 @@ include_directories(include/intern_workshop)
 
 
 include_directories(
-	include
+	# include
   ${catkin_INCLUDE_DIRS}
   ${PCL_INCLUDE_DIRS}
 )
@@ -169,6 +169,11 @@ add_executable(tyu src/tyu.cpp)
 add_executable(pub_data src/pub_data.cpp src/image2velodyne.cpp src/image_seg.cpp) 
 add_executable(pub_color2pc src/pub_color2pc.cpp src/color2pc.cpp) 
 
+
+
+
+
+
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -203,6 +208,8 @@ target_link_libraries(pub_color2pc
   ${OpenCV_LIBRARIES}
   ${PCL_LIBRARIES}
 )
+
+
 
 #############
 ## Install ##

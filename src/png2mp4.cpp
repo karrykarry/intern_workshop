@@ -1,4 +1,6 @@
 /*
+ * png から mp4  へ変換
+ *
  * argv[1] 1 or 2 (dataset) 
  * argv[2] pass1 ~ 10 (pass1~pass10) 
  * argv[3] 1 ~ 5 (1~5) 

@@ -32,4 +32,6 @@
 	<node pkg="pcl_tutorials" type="jsk_bbox" name="jsk_bbox"  >
 		<!-- <remap from ="cluster/centroid" to="dynamic_cluster/centroid" /> -->
 	</node>
+	<node pkg="crossing" type="car_track" name="car_track"  />
+	<node pkg="pcl_tutorials" type="lidar_image_match" name="lidar_image_match"  />
 </launch>
